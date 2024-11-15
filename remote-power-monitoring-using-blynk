@@ -1,0 +1,31 @@
+#define BLYNK_TEMPLATE_ID "TMPL3r6PJRs2g"
+#define BLYNK_TEMPLATE_NAME "MPMC"
+#define BLYNK_PRINT Serial
+
+#include "EmonLib.h"
+#include <EEPROM.h>
+#include <WiFi.h>
+#include <WiFiClient.h>
+#include <BlynkSimpleEsp32.h>
+
+// Constants for calibration
+const float vCalibration = 41.5;
+const float currCalibration = 0.15;
+
+// Blynk and WiFi credentials
+const char auth[] = "qBJmSwd8z-e_Y1uj99b67MLDYbfkdqwJ";
+const char ssid[] = "Redmi";
+const char pass[] = "prajot123";
+
+// EnergyMonitor instance
+EnergyMonitor emon;
+
+// Timer for regular updates
+BlynkTimer timer;
+
+// Variables for energy calculation
+float kWh = 0.0;
+unsigned long lastMillis = millis();
+
+// EEPROM addresses for each variable
+const int addrVrms
